@@ -1,144 +1,524 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Amin Milantash | Portfolio</title>
-  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <style>
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background: radial-gradient(circle at top, #0f3d3a, #081c1a);
-      color: #e6f2ef;
-    }
-
-    .text-gold { color: #d4af37; }
-
-    .btn-gold {
-      background: linear-gradient(135deg, #c9a227, #e6c15a);
-      color: #081c1a;
-      border: none;
-    }
-
-    .btn-outline-teal {
-      border: 1px solid #3faea3;
-      color: #3faea3;
-    }
-
-    /* IMAGE SECTION */
-    .hero-image-wrapper {
-      position: relative;
-      text-align: center;
-    }
-
-    .hero-image-wrapper img {
-      width: 100%;
-      max-width: 420px;
-      border-radius: 24px;
-      position: relative;
-      z-index: 2;
-    }
-
-    /* SVG background effect */
-    .hero-svg {
-      position: absolute;
-      inset: -60px;
-      z-index: 1;
-      opacity: 0.6;
-    }
-
-    @media (max-width: 992px) {
-      .hero-image-wrapper img {
-        max-width: 100%;
-      }
-    }
-    @media (max-width: 991px) {
-  .m-auto {
-    margin: auto;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohammadamin Milantash — Computer Vision & AI Research</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:   #F7F6F2;
+    --ink:     #14171A;
+    --muted:   #63686F;
+    --line:    #DEDBD2;
+    --accent:  #E8491D;
+    --focus:   #1F6D5A;
+    --mono-bg: #EFEDE6;
+    --maxw: 780px;
+    --rail: 148px;
   }
 
-}
+  *{ box-sizing:border-box; margin:0; padding:0; }
 
-  </style>
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Newsreader', Georgia, serif;
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ color:inherit; }
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--focus);
+    outline-offset:3px;
+  }
+
+  .wrap{
+    max-width: calc(var(--maxw) + var(--rail));
+    margin:0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding: 88px 0 56px;
+    border-bottom:1px solid var(--line);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: var(--rail) 1fr;
+    gap: 0 32px;
+    align-items:start;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    color:var(--accent);
+    padding-top:14px;
+  }
+  .name-frame{
+    position:relative;
+    padding: 6px 4px 22px;
+  }
+  .name-frame::before, .name-frame::after{
+    content:"";
+    position:absolute;
+    width:22px; height:22px;
+    border-color:var(--ink);
+    border-style:solid;
+    border-width:0;
+    opacity:.55;
+  }
+  .name-frame::before{ top:-8px; left:-10px; border-top-width:2px; border-left-width:2px; }
+  .name-frame::after{ bottom:6px; right:-10px; border-bottom-width:2px; border-right-width:2px; }
+
+  h1{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size: clamp(34px, 5vw, 50px);
+    letter-spacing:-0.015em;
+    line-height:1.05;
+  }
+  .role{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:500;
+    font-size:18px;
+    color:var(--muted);
+    margin-top:10px;
+  }
+  .tagline{
+    margin-top:18px;
+    max-width:52ch;
+    font-size:17px;
+    color:#33373b;
+  }
+  .links{
+    margin-top:26px;
+    display:flex;
+    flex-wrap:wrap;
+    gap: 10px 22px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  .links a{
+    text-decoration:none;
+    border-bottom:1px solid var(--line);
+    padding-bottom:2px;
+    transition:border-color .15s ease, color .15s ease;
+  }
+  .links a:hover{ border-color:var(--accent); color:var(--accent); }
+
+  /* ---------- Section scaffolding ---------- */
+  section{
+    padding: 46px 0;
+    border-bottom:1px solid var(--line);
+  }
+  section:last-of-type{ border-bottom:none; }
+  .sec-grid{
+    display:grid;
+    grid-template-columns: var(--rail) 1fr;
+    gap: 0 32px;
+  }
+  .sec-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding-top:4px;
+  }
+  h2{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:22px;
+    letter-spacing:-.01em;
+    margin-bottom:22px;
+  }
+
+  /* ---------- Chips (research interests) ---------- */
+  .chips{ display:flex; flex-wrap:wrap; gap:10px; }
+  .chip{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    padding:8px 12px;
+    border:1px solid var(--line);
+    border-radius:2px;
+    background:var(--mono-bg);
+    color:#2b2f33;
+  }
+
+  /* ---------- Entry blocks (education / research / experience) ---------- */
+  .entry{ margin-bottom: 28px; }
+  .entry:last-child{ margin-bottom:0; }
+  .entry-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    flex-wrap:wrap;
+    gap:6px 16px;
+  }
+  .entry-title{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:16.5px;
+  }
+  .entry-org{ color:var(--muted); font-size:15.5px; }
+  .entry-date{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--accent);
+    white-space:nowrap;
+  }
+  .entry ul{
+    margin-top:10px;
+    padding-left:18px;
+  }
+  .entry li{ margin-bottom:5px; font-size:15.5px; }
+  .subgroup-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:.07em;
+    text-transform:uppercase;
+    color:var(--focus);
+    margin: 26px 0 14px;
+  }
+  .subgroup-label:first-child{ margin-top:0; }
+
+  /* ---------- Project cards with corner-bracket signature ---------- */
+  .cards{ display:grid; gap:16px; }
+  .card{
+    position:relative;
+    border:1px solid var(--line);
+    padding:20px 22px;
+    background: #FBFAF8;
+    transition: border-color .2s ease;
+  }
+  .card::before, .card::after{
+    content:"";
+    position:absolute;
+    width:16px; height:16px;
+    border-color:var(--accent);
+    border-style:solid;
+    border-width:0;
+    opacity:0;
+    transition: opacity .2s ease, transform .2s ease;
+  }
+  .card::before{ top:-1px; left:-1px; border-top-width:2px; border-left-width:2px; transform:translate(4px,4px); }
+  .card::after{ bottom:-1px; right:-1px; border-bottom-width:2px; border-right-width:2px; transform:translate(-4px,-4px); }
+  .card:hover{ border-color:#c9c5ba; }
+  .card:hover::before, .card:hover::after{ opacity:1; transform:translate(0,0); }
+  .card h3{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:16px;
+    font-weight:600;
+    margin-bottom:8px;
+  }
+  .card p{ font-size:15.5px; color:#2b2f33; }
+  .card a.proj-link{
+    display:inline-block;
+    margin-top:10px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    color:var(--focus);
+    text-decoration:none;
+    border-bottom:1px solid currentColor;
+  }
+
+  /* ---------- Skills ---------- */
+  .skill-row{
+    display:grid;
+    grid-template-columns: 170px 1fr;
+    gap: 4px 16px;
+    padding: 9px 0;
+    border-bottom:1px dashed var(--line);
+    font-size:15px;
+  }
+  .skill-row:last-child{ border-bottom:none; }
+  .skill-cat{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    padding-top:2px;
+  }
+
+  /* ---------- Compact rows (training / honors / languages) ---------- */
+  .row-list{ display:flex; flex-direction:column; gap:10px; }
+  .row-item{ display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; font-size:15.5px; }
+  .row-item .meta{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--muted);
+    white-space:nowrap;
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding: 56px 0 80px;
+  }
+  .footer-grid{
+    display:grid;
+    grid-template-columns: var(--rail) 1fr;
+    gap:0 32px;
+  }
+  .cta h2{ margin-bottom:12px; }
+  .cta p{ color:var(--muted); max-width:48ch; margin-bottom:22px; }
+  .cta-links{ display:flex; flex-wrap:wrap; gap:14px; }
+  .btn{
+    display:inline-block;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    padding:11px 18px;
+    border:1px solid var(--ink);
+    color:var(--ink);
+    transition: background .15s ease, color .15s ease;
+  }
+  .btn:hover{ background:var(--ink); color:var(--paper); }
+  .btn.primary{ background:var(--accent); border-color:var(--accent); color:#fff; }
+  .btn.primary:hover{ background:#c73d17; border-color:#c73d17; }
+
+  /* ---------- Reveal on scroll ---------- */
+  .reveal{ opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .reveal{ opacity:1; transform:none; transition:none; }
+    .card, .links a, .btn{ transition:none; }
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 720px){
+    :root{ --rail: 0px; }
+    .hero-grid, .sec-grid, .footer-grid{ grid-template-columns: 1fr; }
+    .eyebrow, .sec-label{ padding-top:0; margin-bottom:8px; }
+    .name-frame::before, .name-frame::after{ display:none; }
+    .skill-row{ grid-template-columns: 1fr; }
+    .wrap{ padding:0 20px; }
+    .hero{ padding:56px 0 40px; }
+  }
+</style>
 </head>
-
 <body>
 
-<main class="container py-5">
-  <div class="row align-items-center m-auto gy-5">
+<div class="wrap">
 
-    <!-- LEFT: IMAGE -->
-    <div class="col-lg-6 hero-image-wrapper">
-
-      <!-- SVG BG -->
-      <svg class="hero-svg" viewBox="0 0 600 600">
-        <defs>
-          <radialGradient id="g" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#3faea3" stop-opacity="0.35"/>
-            <stop offset="100%" stop-color="#081c1a" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
-        <circle cx="300" cy="300" r="280" fill="url(#g)" />
-      </svg>
-
-      <!-- IMAGE -->
-      <img src="assets/profile.png" alt="Amin Milantash">
-
-
+  <header class="hero">
+    <div class="hero-grid">
+      <div class="eyebrow">Portfolio</div>
+      <div>
+        <div class="name-frame">
+          <h1>Mohammadamin<br>Milantash</h1>
+        </div>
+        <div class="role">Computer Vision &amp; AI Researcher — applying for MSc/PhD, 2026–27 cycle</div>
+        <p class="tagline">Working on optical character recognition and deep-learning-based vision systems, with research interests moving toward generative and vision-language models. Background in software engineering, now focused on research.</p>
+        <div class="links">
+          <a href="mailto:mohammadamin.milantash@gmail.com">Email</a>
+          <a href="https://github.com/MAmin-Milantash" target="_blank" rel="noopener">GitHub</a>
+          <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="#cv">Download CV (PDF)</a>
+        </div>
+      </div>
     </div>
+  </header>
 
-    <!-- RIGHT: ABOUT -->
-    <div class="col-lg-6">
-      <!-- TEXT UNDER IMAGE -->
-      <div class="mt-4 text-center">
-        <span class="badge rounded-pill bg-dark text-gold mb-3">
-          Computer Vision · AI · Frontend Engineering
-        </span>
+  <section class="reveal">
+    <div class="sec-grid">
+      <div class="sec-label">Interests</div>
+      <div>
+        <h2>Research Interests</h2>
+        <div class="chips">
+          <span class="chip">Computer Vision &amp; Deep Learning — OCR, Text Detection, Image Recognition</span>
+          <span class="chip">Efficient &amp; Practical CV Models for Real-World Applications</span>
+          <span class="chip">Generative AI for Vision — Diffusion Models, GANs</span>
+          <span class="chip">Vision-Language Models (VLMs)</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <h1 class="fw-bold">
-          Hi, I'm <span class="text-gold">Amin Milantash</span>
-        </h1>
+  <section class="reveal">
+    <div class="sec-grid">
+      <div class="sec-label">Education</div>
+      <div>
+        <h2>Education</h2>
+        <div class="entry">
+          <div class="entry-head">
+            <span class="entry-title">B.Sc. in Computer Engineering</span>
+            <span class="entry-date">Sep 2018 – Sep 2022</span>
+          </div>
+          <div class="entry-org">Sadjad University of Technology, Razavi Khorasan, Iran — CGPA 3.6 / 4</div>
+          <ul>
+            <li><strong>Final project:</strong> Smart Lock with Image Processing and ESP32-CAM — hardware built on ESP32-CAM in the Arduino environment, image-processing module in Python.</li>
+            <li><strong>Notable courses:</strong> Applied Linear Algebra (20/20), Fundamentals of Computational Intelligence (20/20), Multimedia Systems (18.65/20).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center mb-3 mt-4">
-          <a href="frontend/index.html" class="btn btn-gold btn-lg">Frontend Resume</a>
-          <a href="ai-cv/index.html" class="btn btn-outline-teal btn-lg">AI  Resume</a>
+  <section class="reveal">
+    <div class="sec-grid">
+      <div class="sec-label">Research</div>
+      <div>
+        <h2>Research Experience</h2>
+        <div class="entry">
+          <div class="entry-head">
+            <span class="entry-title">Research Assistant — OCR &amp; Computer Vision</span>
+            <span class="entry-date">Jan 2026 – Present</span>
+          </div>
+          <div class="entry-org">Centre Borelli, ENS Paris-Saclay · Supervised by Dr. Boshra Rajaei, Research Fellow</div>
+          <ul>
+            <li>Researching optical character recognition (OCR) and text detection in images.</li>
+            <li>Exploring deep-learning approaches to improve recognition accuracy and robustness.</li>
+            <li>Collaborating on experimental design, dataset preprocessing, and model evaluation.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <div class="sec-grid">
+      <div class="sec-label">Experience</div>
+      <div>
+        <h2>Professional Experience</h2>
+
+        <div class="subgroup-label">AI / Computer Vision</div>
+        <div class="entry">
+          <div class="entry-head">
+            <span class="entry-title">Computer Vision Developer</span>
+            <span class="entry-date">Oct 2020 – Oct 2021</span>
+          </div>
+          <div class="entry-org">SAIWA</div>
+          <ul>
+            <li>Designed and optimized computer vision pipelines for real-world applications.</li>
+            <li>Collaborated with a cross-functional team to integrate AI-based solutions into products.</li>
+          </ul>
+        </div>
+        <div class="entry">
+          <div class="entry-head">
+            <span class="entry-title">Computer Vision Developer (Intern)</span>
+            <span class="entry-date">Jul 2020 – Oct 2020</span>
+          </div>
+          <div class="entry-org">MV-Lab, Sadjad University</div>
+          <ul>
+            <li>Implemented image-processing algorithms using Python and OpenCV.</li>
+            <li>Supported research-oriented projects in computer vision and machine learning.</li>
+          </ul>
         </div>
 
-      </div>
-
-      <div class="bg-dark bg-opacity-50 rounded-4 p-4 mb-3 shadow-lg">
-        <h3 class="text-gold mb-3">About Me</h3>
-        <p>I am a computer engineer with a strong interest in computer vision and AI.</p>
-        <p>My research interests include VLMs, generative vision models, medical imaging, and 3D vision.</p>
-        <p>I have hands-on experience with Python, OpenCV, and deep learning frameworks.</p>
-        <p>I also have professional experience leading frontend teams using Angular and TypeScript.</p>
-        <p class="mb-0">
-          My goal is building AI-driven visual systems that connect perception, reasoning, and interaction.
-        </p>
-      </div>
-
-      <span class="badge rounded-pill bg-dark text-gold mb-3">
-        Contact me
-      </span>
-
-      <div class="d-flex gap-4 justify-content-center mt-4">
-         <a href="https://www.linkedin.com/in/aminmilantash/" target="_blank" class="text-gold fs-4">
-           <i class="bi bi-linkedin"></i>
-          </a>
-         <a href="mailto:aminmilantash@gmail.com" class="text-gold fs-4">
-            <i class="bi bi-envelope-fill"></i>
-          </a>
+        <div class="subgroup-label">Software Engineering</div>
+        <div class="entry">
+          <div class="entry-head">
+            <span class="entry-title">Frontend Web Developer → Frontend Team Lead</span>
+            <span class="entry-date">Oct 2021 – Dec 2025</span>
+          </div>
+          <div class="entry-org">Samin Rayane</div>
+          <ul>
+            <li>Developed and maintained frontend applications using Angular and modern web technologies.</li>
+            <li>Promoted to Frontend Team Lead — managed a team of developers, conducted code reviews.</li>
+          </ul>
+        </div>
+        <div class="entry">
+          <div class="entry-head">
+            <span class="entry-title">Frontend Web Developer (Intern)</span>
+            <span class="entry-date">Jul 2019 – Jul 2020</span>
+          </div>
+          <div class="entry-org">Roshdana</div>
+          <ul>
+            <li>Assisted in developing responsive web interfaces using HTML, CSS, and JavaScript.</li>
+          </ul>
+        </div>
       </div>
     </div>
+  </section>
 
-  </div>
-</main>
+  <section class="reveal">
+    <div class="sec-grid">
+      <div class="sec-label">Projects</div>
+      <div>
+        <h2>Notable Academic Projects</h2>
+        <div class="cards">
+          <div class="card">
+            <h3>Computational Intelligence Projects</h3>
+            <p>Developed and implemented neural network algorithms from scratch, including Genetic Algorithms, Multilayer Perceptron (MLP), Adaline, and Perceptron. C++ &amp; Python.</p>
+          </div>
+          <div class="card">
+            <h3>Multimedia Systems Projects</h3>
+            <p>Calculated similarity between 14 audio files using raw and preprocessed data with feature-extraction techniques; built an SVM classifier to distinguish images of apples and oranges. Python.</p>
+          </div>
+          <div class="card">
+            <h3>uHunt — Algorithmic Problem-Solving Tool</h3>
+            <p>Self-financed C++ tool that tracks and analyzes problem-solving progress on UVa Online Judge, reflecting independent software development and algorithmic thinking.</p>
+            <a class="proj-link" href="https://uhunt.onlinejudge.org/id/1033976" target="_blank" rel="noopener">View profile →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <div class="sec-grid">
+      <div class="sec-label">Skills</div>
+      <div>
+        <h2>Skills</h2>
+        <div class="skill-row"><span class="skill-cat">Languages</span><span>Python, C++, TypeScript, JavaScript</span></div>
+        <div class="skill-row"><span class="skill-cat">ML / DL</span><span>PyTorch, Scikit-Learn, OpenCV, NumPy, Pandas, Matplotlib</span></div>
+        <div class="skill-row"><span class="skill-cat">Tools</span><span>Git, Docker, Linux, Jupyter</span></div>
+        <div class="skill-row"><span class="skill-cat">Web</span><span>Angular, React</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <div class="sec-grid">
+      <div class="sec-label">Training</div>
+      <div>
+        <h2>Training, Honors &amp; Languages</h2>
+        <div class="row-list">
+          <div class="row-item"><span>Supervised Machine Learning: Regression and Classification — DeepLearning.AI &amp; Stanford University (Coursera)</span><span class="meta">Jan 2025</span></div>
+          <div class="row-item"><span>PyTorch for Deep Learning — Udemy</span><span class="meta">Oct 2025</span></div>
+          <div class="row-item"><span>Ranked in the Top 5 (~top 4%) of ~120 students by cumulative GPA, B.Sc. Computer Engineering</span><span class="meta">Honor</span></div>
+          <div class="row-item"><span>English — TOEFL, Persian — Native</span><span class="meta">Languages</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="cv">
+    <div class="footer-grid">
+      <div class="sec-label">Contact</div>
+      <div class="cta">
+        <h2>Get in touch</h2>
+        <p>Open to research collaborations and MSc/PhD opportunities in computer vision and AI.</p>
+        <div class="cta-links">
+          <a class="btn primary" href="mailto:mohammadamin.milantash@gmail.com">Email me</a>
+          <a class="btn" href="https://github.com/MAmin-Milantash" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn" href="#" target="_blank" rel="noopener">Download CV (PDF)</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
 
 </body>
 </html>
