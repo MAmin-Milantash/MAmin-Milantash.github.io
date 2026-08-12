@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>if(localStorage.getItem('theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');}</script>
+  <title>Frontend Engineering — Mohammadamin Milantash</title>
+  <meta name="description" content="Selected frontend engineering projects by Mohammadamin Milantash — Angular & React web applications and e-commerce platforms.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:      #FAF9F6;
+      --panel:   #FFFFFF;
+      --panel-2: #F2F0EA;
+      --ink:     #15181C;
+      --muted:   #5B626C;
+      --faint:   #9198A2;
+      --line:    #E4E1D8;
+      --accent:  #0C8F6D;
+      --accent-ink: #FFFFFF;
+      --warm:    #C25A0E;
+      --danger-line: rgba(12,143,109,.35);
+      --tint-1:  rgba(12,143,109,.05);
+      --tint-2:  rgba(194,90,14,.045);
+      --ink-2:   #383F47;
+      --accent-hover: #0A7A5C;
+      --line-hover: #C9C4B5;
+      --edit:    #B5470A;
+      --edit-bg: rgba(194,90,14,.07);
+      --maxw: 900px;
+      --rail: 132px;
+    }
+
+    html[data-theme="dark"]{
+      --bg:      #0B0D10;
+      --panel:   #12161C;
+      --panel-2: #171C23;
+      --ink:     #EEF1F4;
+      --muted:   #8B94A2;
+      --faint:   #565F6B;
+      --line:    #232A33;
+      --accent:  #3CE8A8;
+      --accent-ink: #05130D;
+      --warm:    #FF9548;
+      --danger-line: rgba(60,232,168,.35);
+      --tint-1:  rgba(60,232,168,.07);
+      --tint-2:  rgba(255,149,72,.05);
+      --ink-2:   #C4CAD2;
+      --accent-hover: #2FD394;
+      --line-hover: #3A4350;
+      --edit:    #FF9548;
+      --edit-bg: rgba(255,149,72,.08);
+    }
+
+    *{ box-sizing:border-box; margin:0; padding:0; }
+    html{ scroll-behavior:smooth; }
+
+    body{
+      background:
+              radial-gradient(1100px 480px at 82% -8%, var(--tint-1), transparent 60%),
+              radial-gradient(900px 420px at -10% 8%, var(--tint-2), transparent 55%),
+              var(--bg);
+      color:var(--ink);
+      font-family:'Manrope', -apple-system, sans-serif;
+      font-size:17px;
+      line-height:1.7;
+      -webkit-font-smoothing:antialiased;
+      transition: background-color .2s ease, color .2s ease;
+    }
+
+    a{ color:inherit; }
+    a:focus-visible, button:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+
+    .wrap{ max-width: calc(var(--maxw) + 40px); margin:0 auto; padding:0 26px; }
+    code, .mono{ font-family:'JetBrains Mono', monospace; }
+
+    /* ---------- Bounding-box motif ---------- */
+    .bbox{ position:relative; border:1.5px solid var(--danger-line); border-radius:2px; }
+    .bbox::before, .bbox::after{ content:""; position:absolute; width:14px; height:14px; border-color:var(--accent); border-style:solid; border-width:0; }
+    .bbox::before{ top:-1.5px; left:-1.5px; border-top-width:2.5px; border-left-width:2.5px; }
+    .bbox::after{ bottom:-1.5px; right:-1.5px; border-bottom-width:2.5px; border-right-width:2.5px; }
+    .bbox-tag{
+      position:absolute; top:-13px; left:10px;
+      background:var(--accent); color:var(--accent-ink);
+      font-family:'JetBrains Mono', monospace; font-size:11.5px; font-weight:600;
+      letter-spacing:.03em; padding:2px 7px; border-radius:2px; line-height:1.4;
+    }
+
+    /* ---------- Top bar ---------- */
+    .topbar{ display:flex; align-items:center; justify-content:space-between; padding:22px 0; }
+    .brand{ display:flex; align-items:center; gap:10px; font-family:'JetBrains Mono', monospace; font-size:14px; color:var(--muted); text-decoration:none; }
+    .brand strong{ color:var(--ink); }
+    .brand-avatar{ width:30px; height:30px; border-radius:50%; object-fit:cover; border:1.5px solid var(--line); flex-shrink:0; }
+    .topnav{ display:flex; align-items:center; gap:20px; font-family:'JetBrains Mono', monospace; font-size:12.5px; }
+    .topnav a{ text-decoration:none; color:var(--muted); transition:color .15s ease; }
+    .topnav a:hover{ color:var(--accent); }
+    .theme-toggle{
+      display:inline-flex; align-items:center; justify-content:center;
+      width:32px; height:32px; border:1px solid var(--line); border-radius:50%;
+      background:var(--panel); color:var(--muted); cursor:pointer;
+      transition: border-color .15s ease, color .15s ease;
+    }
+    .theme-toggle:hover{ border-color:var(--accent); color:var(--accent); }
+    .theme-toggle svg{ width:15px; height:15px; }
+    .theme-toggle .icon-sun{ display:none; }
+    html[data-theme="dark"] .theme-toggle .icon-moon{ display:none; }
+    html[data-theme="dark"] .theme-toggle .icon-sun{ display:block; }
+
+    /* ---------- Hero ---------- */
+    .hero{ padding: 30px 0 56px; }
+    .hero-grid{ display:flex; align-items:center; gap:40px; }
+    .work-photo{ position:relative; padding:16px; flex:0 0 300px; width:300px; }
+    .work-photo img{ width:100%; max-width:100%; display:block; border-radius:3px; }
+    .hero-text{ flex:1; min-width:0; }
+    .eyebrow{ font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--warm); margin-bottom:10px; }
+    h1{ font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:clamp(30px,4vw,42px); letter-spacing:-.015em; line-height:1.12; }
+    .hero-text p{ margin-top:16px; max-width:56ch; color:var(--ink-2); font-size:16.5px; }
+    .chips{ display:flex; flex-wrap:wrap; gap:9px; margin-top:22px; }
+    .chip{
+      font-family:'JetBrains Mono', monospace; font-size:12.5px;
+      padding:8px 12px; border:1px solid var(--line); border-radius:3px;
+      background:var(--panel); color:var(--ink-2);
+    }
+    .hero-links{ margin-top:24px; display:flex; flex-wrap:wrap; gap:8px 22px; font-family:'JetBrains Mono', monospace; font-size:13.5px; }
+    .hero-links a{ text-decoration:none; color:var(--muted); border-bottom:1px solid var(--line); padding-bottom:2px; }
+    .hero-links a:hover{ color:var(--accent); border-color:var(--accent); }
+
+    /* ---------- Catalog header ---------- */
+    .catalog-head{
+      display:flex; justify-content:space-between; align-items:baseline;
+      padding-top:40px; border-top:1px solid var(--line); margin-bottom:6px;
+    }
+    h2{ font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:24px; letter-spacing:-.01em; }
+    .catalog-count{ font-family:'JetBrains Mono', monospace; font-size:12.5px; color:var(--faint); }
+
+    /* ---------- Project rows (zig-zag catalog) ---------- */
+    .proj-row{
+      display:flex;
+      align-items:center;
+      gap:40px;
+      padding:52px 0;
+      border-bottom:1px solid var(--line);
+    }
+    .proj-media{ flex:1.2; min-width:0; }
+    .proj-info{ flex:1; min-width:0; }
+    .proj-row:nth-child(even) .proj-media{ order:2; }
+    .proj-num{
+      font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--faint);
+      margin-bottom:10px; letter-spacing:.05em;
+    }
+
+    /* Browser chrome mockup */
+    .browser-frame{
+      border:1px solid var(--line); border-radius:10px; overflow:hidden;
+      background:var(--panel); box-shadow: 0 24px 48px -28px rgba(0,0,0,.35);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+    }
+    .browser-frame:hover{
+      transform: translateY(-4px) scale(1.005);
+      box-shadow: 0 32px 64px -24px rgba(0,0,0,.4);
+    }
+    .browser-topbar{ display:flex; align-items:center; gap:10px; padding:10px 12px; background:var(--panel-2); border-bottom:1px solid var(--line); }
+    .browser-dots{ display:flex; gap:6px; flex-shrink:0; }
+    .browser-dots span{ width:9px; height:9px; border-radius:50%; display:block; }
+    .browser-dots span:nth-child(1){ background:#FF5F57; }
+    .browser-dots span:nth-child(2){ background:#FEBC2E; }
+    .browser-dots span:nth-child(3){ background:#28C840; }
+    .browser-url{
+      flex:1; background:var(--bg); border:1px solid var(--line); border-radius:5px;
+      padding:5px 10px; font-family:'JetBrains Mono', monospace; font-size:11.5px;
+      color:var(--faint); text-align:center; direction:ltr; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+    }
+    .browser-body{
+      position:relative;
+      aspect-ratio: 16/10.5;
+      overflow:hidden;
+      background:var(--panel-2);
+    }
+    .browser-body img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position: top center;
+      display:block;
+    }
+    .browser-fade{ position:absolute; left:0; right:0; bottom:0; height:64px; background:linear-gradient(180deg, transparent, var(--panel)); pointer-events:none; }
+
+    /* Universal Slider Styles - for all project sliders */
+    .slider-container{
+      position:relative;
+      width:100%;
+      height:100%;
+      min-height:100%;
+      background:var(--panel-2);
+      overflow:hidden;
+    }
+    .slider-track{
+      display:flex;
+      transition:transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+      height:100%;
+      width:100%;
+    }
+    .slider-slide{
+      flex:0 0 100%;
+      height:100%;
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:var(--panel-2);
+    }
+    .slider-slide img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position: top center;
+      display:block;
+    }
+    .slider-slide-overlay{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(135deg, rgba(12,143,109,0.06), rgba(12,143,109,0.01));
+      pointer-events:none;
+    }
+    .slider-dots-container{
+      position:absolute;
+      bottom:12px;
+      left:50%;
+      transform:translateX(-50%);
+      display:flex;
+      gap:8px;
+      z-index:10;
+    }
+    .slider-dot-btn{
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:rgba(255,255,255,0.5);
+      border:1.5px solid var(--line);
+      cursor:pointer;
+      transition:all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      padding:0;
+    }
+    .slider-dot-btn.active{
+      background:var(--accent);
+      transform:scale(1.4);
+      border-color:var(--accent);
+      box-shadow:0 0 16px rgba(12,143,109,0.3);
+    }
+    .slider-dot-btn:hover{
+      transform:scale(1.2);
+    }
+    .slider-nav-btn{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      background:rgba(255,255,255,0.12);
+      backdrop-filter:blur(6px);
+      border:1px solid rgba(255,255,255,0.15);
+      color:var(--ink);
+      width:32px;
+      height:32px;
+      border-radius:50%;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index:10;
+      font-size:16px;
+      opacity:0.7;
+    }
+    .slider-nav-btn:hover{
+      background:rgba(255,255,255,0.25);
+      transform:translateY(-50%) scale(1.1);
+      opacity:1;
+    }
+    .slider-nav-btn:active{
+      transform:translateY(-50%) scale(0.9);
+    }
+    .slider-nav-btn.prev{ left:6px; }
+    .slider-nav-btn.next{ right:6px; }
+
+    .slider-glow{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:
+              radial-gradient(ellipse at 20% 50%, rgba(12,143,109,0.04), transparent 60%),
+              radial-gradient(ellipse at 80% 50%, rgba(194,90,14,0.03), transparent 60%);
+    }
+
+    /* Project info */
+    .proj-k{ font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--warm); }
+    .proj-title{ font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:22px; margin-top:10px; letter-spacing:-.01em; }
+    .proj-domain{ font-family:'JetBrains Mono', monospace; font-size:12.5px; color:var(--faint); margin-top:4px; direction:ltr; display:inline-block; }
+    .proj-role{ margin-top:14px; font-size:15.5px; color:var(--ink-2); }
+    .proj-chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+    .proj-chip{
+      font-family:'JetBrains Mono', monospace; font-size:12px;
+      padding:6px 10px; border-radius:3px; border:1px solid var(--line);
+      background:var(--panel); color:var(--ink-2);
+      transition:all 0.2s ease;
+    }
+    .proj-chip:hover{
+      transform:translateY(-2px);
+      box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    }
+    .proj-chip.edit, .proj-role.edit{
+      border:1px dashed var(--edit); background:var(--edit-bg); color:var(--edit);
+    }
+    .proj-role.edit{
+      border-radius:4px; padding:10px 12px;
+      transition:all 0.3s ease;
+    }
+    .proj-role.edit:hover{
+      transform:translateX(4px);
+    }
+
+    /* ---------- Footer ---------- */
+    footer{ padding:56px 0 72px; border-top:1px solid var(--line); margin-top:8px; text-align:center; }
+    footer p{ color:var(--muted); font-size:15px; margin-bottom:20px; }
+    .btn{
+      display:inline-block; font-family:'JetBrains Mono', monospace; font-size:13.5px; text-decoration:none;
+      padding:11px 20px; border:1px solid var(--line); border-radius:4px; color:var(--ink);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .btn:hover{ border-color:var(--accent); color:var(--accent); transform:translateY(-2px); box-shadow:0 8px 24px rgba(12,143,109,0.15); }
+    .fine{ margin-top:22px; font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--faint); }
+
+    .reveal{ opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease; }
+    .js .reveal.in{ opacity:1; transform:none; }
+    html:not(.js) .reveal{ opacity:1; transform:none; }
+
+    /* Floating badge pulse */
+    @keyframes pulse-badge{
+      0%,100%{ opacity:1; }
+      50%{ opacity:0.6; }
+    }
+    .badge-pulse{
+      animation:pulse-badge 2s ease-in-out infinite;
+    }
+
+    @media (max-width: 760px){
+      .hero-grid{ flex-direction:column; }
+      .work-photo{ max-width:280px; width:100%; margin:0 auto; }
+      .proj-row{ flex-direction:column; gap:20px; padding:36px 0; }
+      .proj-row:nth-child(even) .proj-media{ order:0; }
+      .topnav{ gap:14px; }
+      .topnav a:not(:last-child){ display:none; }
+      .slider-nav-btn{
+        width:26px;
+        height:26px;
+        font-size:13px;
+      }
+      .slider-nav-btn.prev{ left:4px; }
+      .slider-nav-btn.next{ right:4px; }
+      .slider-dot-btn{
+        width:7px;
+        height:7px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <a class="brand" href="index.html"><strong>Mohammadamin Milantash</strong> </a>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="#projects">Projects</a>
+      <a href="index.html#cv">Contact</a>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+    </nav>
+  </div>
+
+  <header class="hero reveal">
+    <div class="hero-grid">
+      <div class="work-photo bbox">
+        <span class="bbox-tag">Milantash </span>
+        <img src="../image.jpg" alt="Mohammadamin working at his laptop">
+      </div>
+      <div class="hero-text">
+        <div class="eyebrow">Route · /frontend</div>
+        <h1>Frontend Engineering</h1>
+        <p>I'm a frontend engineer with more than five years of experience building and leading production web applications — from large Angular platforms to focused React interfaces. Below is a selection of e-commerce, corporate websites, and admin panels I've designed and built end to end for real clients.</p>
+        <div class="chips">
+          <span class="chip">Angular</span>
+          <span class="chip">React</span>
+          <span class="chip">TypeScript</span>
+          <span class="chip">JavaScript</span>
+          <span class="chip">Responsive UI</span>
+          <span class="chip">Admin Panels</span>
+        </div>
+        <div class="hero-links">
+          <a href="index.html">← Back to profile</a>
+          <a href="mailto:mohammadamin.milantash@gmail.com">Email</a>
+          <a href="https://github.com/MAmin-Milantash" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div id="projects">
+    <div class="catalog-head reveal">
+      <h2>Selected Projects</h2>
+      <div class="catalog-count">01 – 06</div>
+    </div>
+
+    <!-- 01 - Admin Panel -->
+    <div class="proj-row reveal">
+      <div class="proj-media">
+        <div class="browser-frame">
+          <div class="browser-topbar">
+            <div class="browser-dots"><span></span><span></span><span></span></div>
+            <div class="browser-url">dashrud.ir/admin</div>
+          </div>
+          <div class="browser-body">
+            <div class="slider-container" data-slider="admin">
+              <div class="slider-glow"></div>
+              <div class="slider-track">
+                <div class="slider-slide">
+                  <img src="proj/panel-admin.png" alt="Dashrud Admin Dashboard">
+                  <div class="slider-slide-overlay"></div>
+                </div>
+                <div class="slider-slide">
+                  <img src="proj/panel-admin.png" alt="Dashrud Products Management">
+                  <div class="slider-slide-overlay"></div>
+                </div>
+                <div class="slider-slide">
+                  <img src="proj/panel-admin.png" alt="Dashrud Orders Management">
+                  <div class="slider-slide-overlay"></div>
+                </div>
+              </div>
+              <button class="slider-nav-btn prev" data-slider="admin">‹</button>
+              <button class="slider-nav-btn next" data-slider="admin">›</button>
+              <div class="slider-dots-container" data-slider="admin"></div>
+            </div>
+            <div class="browser-fade"></div>
+          </div>
+        </div>
+      </div>
+      <div class="proj-info">
+        <div class="proj-num">01 / 06</div>
+        <div class="proj-k">Admin Panel · E-commerce</div>
+        <div class="proj-title">Dashrud Admin Dashboard</div>
+        <div class="proj-domain">dashrud.ir</div>
+        <p class="proj-role">Built a comprehensive admin panel for an e-commerce platform with real-time analytics, user management, product catalog, order tracking, and payment gateway integration. Features include dynamic charts, responsive tables, and multi-level access control.</p>
+        <div class="proj-chips">
+          <span class="proj-chip">Angular 16</span>
+          <span class="proj-chip">TypeScript</span>
+          <span class="proj-chip">Chart.js</span>
+          <span class="proj-chip">Tailwind CSS</span>
+          <span class="proj-chip">REST API</span>
+          <span class="proj-chip">WebSocket</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 - Tavan Sazan -->
+    <div class="proj-row reveal">
+      <div class="proj-media">
+        <div class="browser-frame">
+          <div class="browser-topbar">
+            <div class="browser-dots"><span></span><span></span><span></span></div>
+            <div class="browser-url">tavansazangroup.com</div>
+          </div>
+          <div class="browser-body">
+            <div class="slider-container" data-slider="tavan">
+              <div class="slider-glow"></div>
+              <div class="slider-track">
+                <div class="slider-slide">
+                  <img src="proj/tavansazangroup-com.jpg" alt="Tavan Sazan Homepage">
+                  <div class="slider-slide-overlay"></div>
+                </div>
+                <div class="slider-slide">
+                  <img src="proj/tavansazangroup-com.jpg" alt="Tavan Sazan Products">
+                  <div class="slider-slide-overlay"></div>
+                </div>
+                <div class="slider-slide">
+                  <img src="proj/tavansazangroup-com.jpg" alt="Tavan Sazan Production Chart">
+                  <div class="slider-slide-overlay"></div>
+                </div>
+              </div>
+              <button class="slider-nav-btn prev" data-slider="tavan">‹</button>
+              <button class="slider-nav-btn next" data-slider="tavan">›</button>
+              <div class="slider-dots-container" data-slider="tavan"></div>
+            </div>
+            <div class="browser-fade"></div>
+          </div>
+        </div>
+      </div>
+      <div class="proj-info">
+        <div class="proj-num">02 / 06</div>
+        <div class="proj-k">Corporate · Industrial</div>
+        <div class="proj-title">Tavan Sazan Azarakhsh Shargh</div>
+        <div class="proj-domain">tavansazangroup.com</div>
+        <p class="proj-role">Built the frontend for this well-drilling equipment manufacturer's corporate site: product galleries, live production chart, certifications, and an interactive service-area map.</p>
+        <div class="proj-chips">
+          <span class="proj-chip">WordPress</span>
+          <span class="proj-chip">Chart.js</span>
+          <span class="proj-chip">Leaflet Maps</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 - Khoshkebar Namdar -->
+    <div class="proj-row reveal">
+      <div class="proj-media">
+        <div class="browser-frame">
+          <div class="browser-topbar">
+            <div class="browser-dots"><span></span><span></span><span></span></div>
+            <div class="browser-url">khoshkebarnamdar.com</div>
+          </div>
+          <div class="browser-body">
+            <div class="slider-container" data-slider="khoshkebar">
+              <div class="slider-glow"></div>
+              <div class="slider-track">
+                <div class="slider-slide">
+                  <img src="proj/khoshkebarnamdar-com.jpg" alt="Khoshkebar Namdar Homepage">
+                  <div class="slider-slide-overlay"></div>
+                </div>
+                <div class="slider-slide">
+                  <img src="proj/khoshkebarnamdar-com.jpg" alt="Khoshkebar Namdar Products">
+                  <div class="slider-slide-overlay"></div>
+                </div>
+                <div class="slider-slide">
+                  <img src="proj/khoshkebarnamdar-com.jpg" alt="Khoshkebar Namdar Cart">
+                  <div class="slider-slide-overlay"></div>
+                </div>
+              </div>
+              <button class="slider-nav-btn prev" data-slider="khoshkebar">‹</button>
+              <button class="slider-nav-btn next" data-slider="khoshkebar">›</button>
+              <div class="slider-dots-container" data-slider="khoshkebar"></div>
+            </div>
+            <div class="browser-fade"></div>
+          </div>
+        </div>
+      </div>
+      <div class="proj-info">
+        <div class="proj-num">03 / 06</div>
+        <div class="proj-k">E-commerce</div>
+        <div class="proj-title">Khoshkebar Namdar</div>
+        <div class="proj-domain">khoshkebarnamdar.com</div>
+        <p class="proj-role">Built the storefront for this nuts & dried-fruit shop: product catalog, cart and checkout flow, and the blog section.</p>
+        <div class="proj-chips">
+          <span class="proj-chip">WooCommerce</span>
+          <span class="proj-chip">Elementor</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 - KijaFood -->
+    <div class="proj-row reveal">
+      <div class="proj-media">
+        <div class="browser-frame">
+          <div class="browser-topbar">
+            <div class="browser-dots"><span></span><span></span><span></span></div>
+            <div class="browser-url">kijafood.com</div>
+          </div>
+          <div class="browser-body">
+            <div class="slider-container" data-slider="kija">
+              <div class="slider-glow"></div>
+              <div class="slider-track">
+                <div class="slider-slide">
+                  <img src="proj/kijafood-com.jpg" alt="KijaFood Homepage">
+                  <div class="slider-slide-overlay"></div>
+                </div>
+                <div class="slider-slide">
+                  <img src="proj/kijafood-com.jpg"  alt="KijaFood Menu">
+                  <div class="slider-slide-overlay"></div>
+                </div>
+                <div class="slider-slide">
+                  <img src="proj/kijafood-com.jpg"  alt="KijaFood Blog">
+                  <div class="slider-slide-overlay"></div>
+                </div>
+              </div>
+              <button class="slider-nav-btn prev" data-slider="kija">‹</button>
+              <button class="slider-nav-btn next" data-slider="kija">›</button>
+              <div class="slider-dots-container" data-slider="kija"></div>
+            </div>
+            <div class="browser-fade"></div>
+          </div>
+        </div>
+      </div>
+      <div class="proj-info">
+        <div class="proj-num">04 / 06</div>
+        <div class="proj-k">E-commerce · Catering</div>
+        <div class="proj-title">KijaFood</div>
+        <div class="proj-domain">kijafood.com</div>
+        <p class="proj-role">Built the ordering site for this finger-food & catering brand: category browsing, product pages, and the blog/recipes section.</p>
+        <div class="proj-chips">
+          <span class="proj-chip">WooCommerce</span>
+          <span class="proj-chip">Elementor</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 - Apadana Computer -->
+    <div class="proj-row reveal">
+      <div class="proj-media">
+        <div class="browser-frame">
+          <div class="browser-topbar">
+            <div class="browser-dots"><span></span><span></span><span></span></div>
+            <div class="browser-url">apadanacomputer.ir</div>
+          </div>
+          <div class="browser-body">
+            <div class="slider-container" data-slider="apadana">
+              <div class="slider-glow"></div>
+              <div class="slider-track">
+                <div class="slider-slide">
+                  <img src="proj/apadanacomputer-ir.jpg" alt="Apadana Computer Homepage">
+                  <div class="slider-slide-overlay"></div>
+                </div>
+                <div class="slider-slide">
+                  <img src="proj/apadanacomputer-ir.jpg" alt="Apadana Computer Products">
+                  <div class="slider-slide-overlay"></div>
+                </div>
+                <div class="slider-slide">
+                  <img src="proj/apadanacomputer-ir.jpg"alt="Apadana Computer Brands">
+                  <div class="slider-slide-overlay"></div>
+                </div>
+              </div>
+              <button class="slider-nav-btn prev" data-slider="apadana">‹</button>
+              <button class="slider-nav-btn next" data-slider="apadana">›</button>
+              <div class="slider-dots-container" data-slider="apadana"></div>
+            </div>
+            <div class="browser-fade"></div>
+          </div>
+        </div>
+      </div>
+      <div class="proj-info">
+        <div class="proj-num">05 / 06</div>
+        <div class="proj-k">E-commerce · Electronics</div>
+        <div class="proj-title">Apadana Computer</div>
+        <div class="proj-domain">apadanacomputer.ir</div>
+        <p class="proj-role">Built the storefront for this computer-accessories retailer: product grid, filtering, cart, and brand showcase.</p>
+        <div class="proj-chips">
+          <span class="proj-chip">WooCommerce</span>
+          <span class="proj-chip">Elementor</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06 - Azoghebar -->
+    <div class="proj-row reveal">
+      <div class="proj-media">
+        <div class="browser-frame">
+          <div class="browser-topbar">
+            <div class="browser-dots"><span></span><span></span><span></span></div>
+            <div class="browser-url">azoghebar.ir</div>
+          </div>
+          <div class="browser-body">
+            <div class="slider-container" data-slider="azoghebar">
+              <div class="slider-glow"></div>
+              <div class="slider-track">
+                <div class="slider-slide">
+                  <img src="proj/azoghebar-ir.jpg" alt="Azoghebar Homepage">
+                  <div class="slider-slide-overlay"></div>
+                </div>
+                <div class="slider-slide">
+                  <img src="proj/azoghebar-ir.jpg" alt="Azoghebar Products">
+                  <div class="slider-slide-overlay"></div>
+                </div>
+                <div class="slider-slide">
+                  <img src="proj/azoghebar-ir.jpg" alt="Azoghebar Checkout">
+                  <div class="slider-slide-overlay"></div>
+                </div>
+              </div>
+              <button class="slider-nav-btn prev" data-slider="azoghebar">‹</button>
+              <button class="slider-nav-btn next" data-slider="azoghebar">›</button>
+              <div class="slider-dots-container" data-slider="azoghebar"></div>
+            </div>
+            <div class="browser-fade"></div>
+          </div>
+        </div>
+      </div>
+      <div class="proj-info">
+        <div class="proj-num">06 / 06</div>
+        <div class="proj-k">E-commerce · Grocery</div>
+        <div class="proj-title">Azoghebar</div>
+        <div class="proj-domain">azoghebar.ir</div>
+        <p class="proj-role">Built the storefront for this rice & grocery shop: product catalog, categories, and checkout flow.</p>
+        <div class="proj-chips">
+          <span class="proj-chip">WooCommerce</span>
+          <span class="proj-chip">Elementor</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="reveal">
+    <p>Want to see how any of these were built, or talk about a project?</p>
+    <a class="btn" href="mailto:mohammadamin.milantash@gmail.com">Get in touch</a>
+    <div class="fine">mamin-milantash.github.io</div>
+  </footer>
+
+</div>
+
+<script>
+  (function(){
+    const btn = document.getElementById('themeToggle');
+    btn.addEventListener('click', function(){
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (isDark){
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+  })();
+
+  // Universal Slider System - for all project sliders
+  (function(){
+    const sliders = {};
+
+    // Initialize all sliders
+    document.querySelectorAll('.slider-container').forEach(container => {
+      const id = container.dataset.slider;
+      const track = container.querySelector('.slider-track');
+      const slides = track.querySelectorAll('.slider-slide');
+      const totalSlides = slides.length;
+
+      if (totalSlides <= 1) return;
+
+      let currentIndex = 0;
+      let autoplayInterval = null;
+      const dotsContainer = container.querySelector('.slider-dots-container');
+
+      // Create dots
+      for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'slider-dot-btn' + (i === 0 ? ' active' : '');
+        dot.dataset.index = i;
+        dot.addEventListener('click', () => goToSlide(i));
+        dotsContainer.appendChild(dot);
+      }
+
+      function updateDots() {
+        dotsContainer.querySelectorAll('.slider-dot-btn').forEach((dot, i) => {
+          dot.classList.toggle('active', i === currentIndex);
+        });
+      }
+
+      function goToSlide(index) {
+        currentIndex = index;
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        updateDots();
+        resetAutoplay();
+      }
+
+      function nextSlide() {
+        goToSlide((currentIndex + 1) % totalSlides);
+      }
+
+      function prevSlide() {
+        goToSlide((currentIndex - 1 + totalSlides) % totalSlides);
+      }
+
+      function resetAutoplay() {
+        if (autoplayInterval) {
+          clearInterval(autoplayInterval);
+        }
+        autoplayInterval = setInterval(nextSlide, 4500);
+      }
+
+      // Event listeners
+      const prevBtn = container.querySelector('.slider-nav-btn.prev');
+      const nextBtn = container.querySelector('.slider-nav-btn.next');
+      prevBtn.addEventListener('click', (e) => { e.stopPropagation(); prevSlide(); });
+      nextBtn.addEventListener('click', (e) => { e.stopPropagation(); nextSlide(); });
+
+      // Touch support
+      let touchStartX = 0;
+      let touchEndX = 0;
+      container.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+      container.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > 50) {
+          if (diff > 0) nextSlide();
+          else prevSlide();
+        }
+      }, { passive: true });
+
+      // Start autoplay
+      resetAutoplay();
+
+      // Pause autoplay on hover
+      container.addEventListener('mouseenter', () => {
+        if (autoplayInterval) clearInterval(autoplayInterval);
+      });
+      container.addEventListener('mouseleave', resetAutoplay);
+
+      // Store slider instance
+      sliders[id] = { goToSlide, nextSlide, prevSlide, container };
+    });
+
+    // Keyboard navigation for all sliders - use arrow keys when any slider is hovered
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        const activeSlider = document.querySelector('.slider-container:hover');
+        if (activeSlider) {
+          const id = activeSlider.dataset.slider;
+          if (sliders[id]) {
+            if (e.key === 'ArrowRight') sliders[id].nextSlide();
+            else sliders[id].prevSlide();
+            e.preventDefault();
+          }
+        }
+      }
+    });
+
+    // Expose for debugging
+    window.sliders = sliders;
+  })();
+
+  // Intersection Observer for reveal animations
+  document.documentElement.classList.add('js');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
