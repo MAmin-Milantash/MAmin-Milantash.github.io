@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script>if(localStorage.getItem('theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');}</script>
   <title>Mohammadamin Milantash — Computer Vision & Software Engineer</title>
-  <meta name="description" content="Mohammadamin Milantash — Research Assistant in OCR & Computer Vision | Computer Engineer with experience in deep learning, computer vision, and frontend development.">
+  <meta name="description" content="Mohammadamin Milantash — Computer Engineer with experience in deep learning, computer vision, and frontend development.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -116,6 +116,8 @@
       align-items:center;
       justify-content:space-between;
       padding:22px 0;
+      flex-wrap:wrap;
+      gap:12px;
     }
     .brand{
       display:flex;
@@ -127,7 +129,7 @@
       color:var(--muted);
     }
     .brand-avatar{
-      width:100px; height:100px;
+      width:60px; height:60px;
       border-radius:50%;
       object-fit:cover;
       border:1.5px solid var(--line);
@@ -137,11 +139,17 @@
     .topnav{
       display:flex;
       align-items:center;
-      gap:20px;
+      gap:16px;
       font-family:'JetBrains Mono', monospace;
       font-size:13.5px;
+      flex-wrap:wrap;
     }
-    .topnav a{ text-decoration:none; color:var(--muted); transition:color .15s ease; }
+    .topnav a{
+      text-decoration:none;
+      color:var(--muted);
+      transition:color .15s ease;
+      white-space:nowrap;
+    }
     .topnav a:hover{ color:var(--accent); }
 
     .theme-toggle{
@@ -155,6 +163,7 @@
       color:var(--muted);
       cursor:pointer;
       transition: border-color .15s ease, color .15s ease;
+      flex-shrink:0;
     }
     .theme-toggle:hover{ border-color:var(--accent); color:var(--accent); }
     .theme-toggle svg{ width:15px; height:15px; }
@@ -474,18 +483,98 @@
       .reveal{ opacity:1; transform:none; transition:none; }
     }
 
-    @media (max-width: 720px){
+    /* ---------- Mobile Responsive ---------- */
+    @media (max-width: 768px){
       :root{ --rail: 0px; }
       .hero-grid, .sec-grid, .footer-grid{ grid-template-columns: 1fr; }
       .eyebrow, .sec-label{ padding-top:0; margin-bottom:10px; }
       .skill-row{ grid-template-columns: 1fr; }
       .wrap{ padding:0 18px; }
       .hero{ padding:20px 0 32px; }
-      .cta-duo{ grid-template-columns:1fr; }
-      .topnav{ display:none; }
-      .profile-layout{ flex-direction:column; align-items:center; text-align:center; }
+
+      /* Mobile navigation - full width, wrapped */
+      .topbar{
+        flex-direction:column;
+        align-items:stretch;
+        gap:8px;
+      }
+      .brand{
+        justify-content:center;
+        font-size:13px;
+      }
+      .brand-avatar{
+        width:50px;
+        height:50px;
+      }
+      .topnav{
+        justify-content:center;
+        gap:12px;
+        font-size:12px;
+        flex-wrap:wrap;
+      }
+      .topnav a{
+        font-size:12px;
+        padding:4px 0;
+      }
+      .theme-toggle{
+        width:28px;
+        height:28px;
+        margin-left:4px;
+      }
+      .theme-toggle svg{ width:13px; height:13px; }
+
+      /* Profile layout - stacked on mobile */
+      .profile-layout{
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+        gap:16px;
+      }
+      .profile-photo{
+        flex:0 0 120px;
+        width:120px;
+        height:120px;
+      }
       .profile-content{ text-align:center; }
       .links{ justify-content:center; }
+      .links a{ font-size:12px; }
+
+      .cta-duo{ grid-template-columns:1fr; }
+      .cta-block .t{ font-size:17px; }
+      .cta-block .d{ font-size:13.5px; }
+
+      .news-section{ padding:14px 16px; }
+      .news-item{ font-size:14px; }
+      .news-item .date{ font-size:11px; margin-right:10px; }
+
+      h1{ font-size:clamp(28px, 6vw, 36px); }
+      .role{ font-size:16px; }
+      .tagline{ font-size:15px; }
+
+      .entry-title{ font-size:16px; }
+      .entry-org{ font-size:14.5px; }
+      .entry li{ font-size:14.5px; }
+      .entry-date{ font-size:11px; }
+
+      .chip{ font-size:12px; padding:6px 10px; }
+      .skill-row{ font-size:14px; }
+      .skill-cat{ font-size:11px; }
+      .row-item{ font-size:14px; }
+      .row-item .meta{ font-size:11px; }
+
+      .btn{ font-size:12.5px; padding:8px 14px; }
+      .fine{ font-size:11px; }
+    }
+
+    @media (max-width: 480px){
+      .topnav{ gap:8px; }
+      .topnav a{ font-size:11px; }
+      .brand{ font-size:12px; }
+      .brand-avatar{ width:40px; height:40px; }
+      .profile-photo{ flex:0 0 100px; width:100px; height:100px; }
+      .cta-block{ padding:16px 16px 14px; }
+      .cta-block .t{ font-size:16px; }
+      .cta-block .arrow{ top:14px; right:14px; font-size:16px; }
     }
   </style>
 </head>
@@ -520,7 +609,7 @@
               <h1>Mohammadamin<br>Milantash</h1>
             </div>
             <p class="role">Computer Vision Researcher & Software Engineer</p>
-            <p class="tagline">Research Assistant in OCR &amp; Computer Vision | Passionate about building AI-powered solutions that connect advanced technology with real-world impact.</p>
+            <p class="tagline">Computer Engineer with experience in deep learning, computer vision projects, and software development, combined with a strong background in leading frontend teams. Passionate about building AI-powered solutions that connect advanced technology with real-world impact.</p>
             <div class="links">
               <a href="mailto:mohammadamin.milantash@gmail.com">Email</a>
               <a href="https://github.com/MAmin-Milantash" target="_blank" rel="noopener">GitHub</a>
@@ -538,7 +627,7 @@
           </div>
           <div class="news-item">
             <span class="date">Jan 2026</span>
-            Started as Research Assistant  — working on OCR and text detection.
+            Started as Research Assistant working on OCR and text detection.
           </div>
           <div class="news-item">
             <span class="date">Nov 2025</span>
@@ -622,7 +711,7 @@
             <span class="entry-title">Research Assistant — OCR &amp; Computer Vision</span>
             <span class="entry-date">Jan 2026 – Present</span>
           </div>
-          <div class="entry-org">Centre Borelli, ENS Paris-Saclay · Supervised by Dr. Boshra Rajaei, Research Fellow</div>
+          <div class="entry-org">Supervised by Dr. Boshra Rajaei, Research Fellow, Centre Borelli, ENS Paris-Saclay</div>
           <ul>
             <li>Conducting research on deep learning–based OCR and text detection in images.</li>
             <li>Working across dataset preprocessing, experimental design, and model evaluation.</li>
