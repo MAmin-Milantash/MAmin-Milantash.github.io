@@ -1,0 +1,1259 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070713">
+  <link rel="icon" id="favicon" type="image/png" href="assets/logo.png">
+  <link rel="apple-touch-icon" href="assets/logo.png">
+  <meta name="author" content="Mohammadamin Milantash">
+  <meta name="robots" content="index,follow">
+  <meta name="description" content="WebVision — an AI-powered SaaS platform for turning ideas, screenshots and business requirements into editable, deployable websites.">
+  <title>WebVision — Your vision, instantly on the web</title>
+ <style>
+  :root{
+    --bg:#06060f;
+    --bg2:#0b0a19;
+    --panel:rgba(255,255,255,.055);
+    --line:rgba(255,255,255,.10);
+    --text:#f6f5ff;
+    --muted:#aaa8bd;
+    --purple:#8b5cf6;
+    --violet:#a78bfa;
+    --cyan:#67e8f9;
+    --max:1180px;
+    --radius:28px;
+  }
+
+  *{
+    box-sizing:border-box;
+  }
+
+  html{
+    scroll-behavior:smooth;
+  }
+
+  body{
+    margin:0;
+    background:
+            radial-gradient(
+                    circle at 75% 5%,
+                    rgba(124,58,237,.18),
+                    transparent 28rem
+            ),
+            radial-gradient(
+                    circle at 10% 45%,
+                    rgba(37,99,235,.10),
+                    transparent 25rem
+            ),
+            var(--bg);
+    color:var(--text);
+    font-family:
+            Inter,
+            ui-sans-serif,
+            system-ui,
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            sans-serif;
+    line-height:1.65;
+  }
+
+  a{
+    color:inherit;
+    text-decoration:none;
+  }
+
+  img{
+    max-width:100%;
+    display:block;
+  }
+
+  .container{
+    width:min(calc(100% - 40px),var(--max));
+    margin:auto;
+  }
+
+
+  /* =====================================================
+     NAVIGATION
+     ===================================================== */
+
+  .nav{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(6,6,15,.70);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(255,255,255,.07);
+  }
+
+  .nav-inner{
+    height:74px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    font-weight:800;
+    letter-spacing:-.03em;
+    max-width:125px;
+    padding:15px;
+  }
+
+  .mark{
+    width:36px;
+    height:36px;
+    border-radius:12px;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(135deg,#9b6cff,#4f7cff);
+    box-shadow:0 0 28px rgba(139,92,246,.35);
+  }
+
+  .mark:before,
+  .mark:after{
+    content:"";
+    display:block;
+    position:absolute;
+  }
+
+  .mark span{
+    font-size:18px;
+    font-weight:900;
+    color:white;
+  }
+
+  .navlinks{
+    display:flex;
+    gap:25px;
+    color:#bbb8cc;
+    font-size:14px;
+  }
+
+  .navlinks a:hover{
+    color:#fff;
+  }
+
+  .nav-cta{
+    padding:10px 16px;
+    border:1px solid var(--line);
+    border-radius:999px;
+    font-size:14px;
+  }
+
+
+  /* =====================================================
+     HERO
+     ===================================================== */
+
+  .hero{
+    min-height:calc(100vh - 74px);
+    display:grid;
+    align-items:center;
+    padding:70px 0 90px;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .hero-grid{
+    display:grid;
+    grid-template-columns:.92fr 1.08fr;
+    gap:54px;
+    align-items:center;
+  }
+
+  .eyebrow{
+    display:inline-flex;
+    gap:9px;
+    align-items:center;
+    color:#c7b8ff;
+    font-size:13px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+  }
+
+  .dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#a78bfa;
+    box-shadow:0 0 14px #8b5cf6;
+  }
+
+  h1{
+    font-size:clamp(48px,7vw,84px);
+    line-height:.98;
+    letter-spacing:-.065em;
+    margin:18px 0 24px;
+    max-width:750px;
+  }
+
+  .gradient{
+    background:
+            linear-gradient(
+                    110deg,
+                    #fff 25%,
+                    #bda8ff 58%,
+                    #72d9ff
+            );
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+
+  .hero p{
+    font-size:18px;
+    color:var(--muted);
+    max-width:620px;
+    margin:0 0 30px;
+  }
+
+  .actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    padding:13px 19px;
+    border-radius:14px;
+    font-weight:750;
+    border:1px solid var(--line);
+    transition:.2s;
+  }
+
+  .btn.primary{
+    background:linear-gradient(135deg,#8b5cf6,#5b7cff);
+    box-shadow:0 10px 35px rgba(99,70,200,.28);
+  }
+
+  .btn.secondary{
+    background:rgba(255,255,255,.035);
+  }
+
+  .btn:hover{
+    transform:translateY(-2px);
+    border-color:rgba(255,255,255,.2);
+  }
+  .hero-media{
+                         border-radius:30px;
+                         overflow:hidden;
+                         border:1px solid var(--line);
+                         background:#090917;
+                         box-shadow:
+                                 0 35px 100px rgba(0,0,0,.5),
+                                 0 0 80px rgba(111,74,255,.14);
+                       }
+
+  .hero-media img{
+    width:100%;
+    height:auto;
+  }
+
+  .caption{
+    font-size:12px;
+    color:#8f8da0;
+    margin-top:11px;
+  }
+
+
+  /* =====================================================
+     GENERAL SECTIONS
+     ===================================================== */
+
+  section{
+    padding:105px 0;
+    position:relative;
+  }
+
+  .section-head{
+    max-width:760px;
+    margin-bottom:48px;
+  }
+
+  .kicker{
+    color:#a78bfa;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-size:12px;
+  }
+
+  h2{
+    font-size:clamp(34px,5vw,58px);
+    line-height:1.03;
+    letter-spacing:-.055em;
+    margin:10px 0 17px;
+  }
+
+  .lead{
+    color:var(--muted);
+    font-size:17px;
+    max-width:740px;
+  }
+
+
+  /* =====================================================
+     ABOUT
+     ===================================================== */
+
+  .about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:30px;
+    align-items:center;
+  }
+
+  .about-copy p{
+    color:var(--muted);
+    font-size:16px;
+  }
+
+  .about-card{
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:28px;
+    background:
+            linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.07),
+                    rgba(255,255,255,.025)
+            );
+  }
+
+  .about-card h3{
+    margin:0 0 12px;
+    font-size:19px;
+  }
+
+  .chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:9px;
+    margin-top:22px;
+  }
+
+  .chip{
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.035);
+    padding:8px 11px;
+    border-radius:999px;
+    font-size:13px;
+    color:#d3d0df;
+  }
+
+  .about-image{
+    border-radius:var(--radius);
+    overflow:hidden;
+    border:1px solid var(--line);
+    background:#0a0a18;
+  }
+
+
+  /* =====================================================
+     COMPARISON
+     ===================================================== */
+
+  .compare{
+    margin-top:48px;
+    border-radius:30px;
+    overflow:hidden;
+    border:1px solid var(--line);
+    background:#090917;
+  }
+
+  .compare img{
+    width:100%;
+  }
+
+
+  /* =====================================================
+     WEBVISION PROCESS — 5 STEPS
+
+     Image is intentionally larger than the original.
+     Original:
+     70px | 1fr | 220px
+
+     New:
+     58px | .82fr | 1.18fr
+     ===================================================== */
+
+  .steps{
+    display:grid;
+    gap:20px;
+  }
+
+  .step{
+    display:grid;
+
+    /*
+      Number | Text | Image
+
+      The image gets more horizontal space.
+      Text becomes slightly narrower.
+    */
+    grid-template-columns:
+      58px
+      minmax(0,.82fr)
+      minmax(360px,1.18fr);
+
+    gap:26px;
+
+    align-items:center;
+
+    border:1px solid var(--line);
+
+    background:
+            linear-gradient(
+                    110deg,
+                    rgba(255,255,255,.055),
+                    rgba(255,255,255,.018)
+            );
+
+    padding:25px;
+
+    border-radius:24px;
+
+    transition:
+            transform .25s ease,
+            border-color .25s ease,
+            background .25s ease;
+  }
+
+  .step:hover{
+    transform:translateY(-2px);
+
+    border-color:rgba(167,139,250,.25);
+
+    background:
+            linear-gradient(
+                    110deg,
+                    rgba(139,92,246,.065),
+                    rgba(255,255,255,.02)
+            );
+  }
+
+  .num{
+    width:52px;
+    height:52px;
+
+    border-radius:16px;
+
+    display:grid;
+    place-items:center;
+
+    font-weight:900;
+
+    background:
+            linear-gradient(
+                    135deg,
+                    rgba(139,92,246,.32),
+                    rgba(103,232,249,.12)
+            );
+
+    border:1px solid rgba(167,139,250,.25);
+
+    flex-shrink:0;
+  }
+
+  .step h3{
+    margin:0 0 7px;
+    font-size:21px;
+    line-height:1.25;
+  }
+
+  .step p{
+    margin:0;
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.7;
+  }
+
+  .step ul{
+    margin:12px 0 0;
+    padding-left:18px;
+    color:#c8c5d5;
+    font-size:13px;
+    line-height:1.7;
+  }
+ .step-media{
+                         width:100%;
+                         border-radius:18px;
+                         overflow:hidden;
+                         border:1px solid var(--line);
+                         background:#090917;
+                       }
+
+  .step-media img{
+    width:100%;
+    height:auto;
+
+    /*
+      Keeps the generated images proportional
+      without stretching them.
+    */
+    aspect-ratio:16 / 10;
+
+    object-fit:cover;
+
+    display:block;
+
+    transition:transform .35s ease;
+  }
+
+  .step:hover .step-media img{
+    transform:scale(1.02);
+  }
+
+
+  /* =====================================================
+     FEATURES
+     ===================================================== */
+
+  .feature-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:17px;
+  }
+
+  .feature{
+    padding:25px;
+    border:1px solid var(--line);
+    border-radius:22px;
+    background:var(--panel);
+  }
+
+  .icon{
+    width:38px;
+    height:38px;
+    border-radius:12px;
+    display:grid;
+    place-items:center;
+    background:rgba(139,92,246,.15);
+    margin-bottom:17px;
+    color:#c4b5fd;
+  }
+
+  .feature h3{
+    margin:0 0 7px;
+    font-size:18px;
+  }
+
+  .feature p{
+    margin:0;
+    color:var(--muted);
+    font-size:14px;
+  }
+
+
+  /* =====================================================
+     TECHNOLOGY
+     ===================================================== */
+
+  .tech-grid{
+    display:grid;
+    grid-template-columns:.85fr 1.15fr;
+    gap:35px;
+    align-items:center;
+  }
+
+  .tech-image{
+    border:1px solid var(--line);
+    border-radius:28px;
+    overflow:hidden;
+  }
+
+  .tech-list{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+  }
+
+  .tech-item{
+    padding:17px;
+    border:1px solid var(--line);
+    border-radius:17px;
+    background:rgba(255,255,255,.035);
+  }
+
+  .tech-item strong{
+    display:block;
+    font-size:14px;
+  }
+
+  .tech-item span{
+    font-size:12px;
+    color:#9794a8;
+  }
+
+  .status{
+    display:inline-block;
+    margin-top:8px;
+    font-size:10px;
+    color:#bdb7cf;
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:3px 7px;
+  }
+
+
+  /* =====================================================
+     VISION / ROADMAP
+     ===================================================== */
+
+  .vision{
+    background:
+            linear-gradient(
+                    180deg,
+                    transparent,
+                    rgba(91,62,180,.08),
+                    transparent
+            );
+  }
+
+  .roadmap{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+  }
+
+  .road{
+    min-height:240px;
+    border:1px solid var(--line);
+    border-radius:22px;
+    padding:23px;
+    background:rgba(255,255,255,.035);
+    position:relative;
+  }
+
+  .road .tag{
+    font-size:11px;
+    color:#bcaeff;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+  }
+
+  .road h3{
+    margin:9px 0 9px;
+  }
+
+  .road p{
+    color:var(--muted);
+    font-size:13px;
+  }
+
+  .road:after{
+    content:"";
+    position:absolute;
+    top:28px;
+    right:22px;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#8b5cf6;
+    box-shadow:0 0 18px #8b5cf6;
+  }
+
+
+  /* =====================================================
+     FOUNDER
+     ===================================================== */
+
+  .founder{
+    display:grid;
+    grid-template-columns:.8fr 1.2fr;
+    gap:38px;
+    align-items:stretch;
+  }
+
+  .founder-card{
+    border:1px solid var(--line);
+    border-radius:28px;
+    padding:31px;
+    background:
+            linear-gradient(
+                    150deg,
+                    rgba(139,92,246,.12),
+                    rgba(255,255,255,.025)
+            );
+  }
+
+  .founder-name{
+    font-size:29px;
+    font-weight:850;
+    letter-spacing:-.04em;
+  }
+
+  .role{
+    color:#bcaeff;
+    margin:5px 0 20px;
+  }
+
+  .founder p{
+    color:var(--muted);
+  }
+
+  .timeline{
+    border-left:1px solid rgba(167,139,250,.3);
+    padding-left:24px;
+    display:grid;
+    gap:24px;
+  }
+
+  .timeline div{
+    position:relative;
+  }
+
+  .timeline div:before{
+    content:"";
+    position:absolute;
+    left:-30px;
+    top:8px;
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background:#8b5cf6;
+    box-shadow:0 0 15px #8b5cf6;
+  }
+
+  .timeline h3{
+    margin:0 0 4px;
+    font-size:16px;
+  }
+  .timeline p{
+                         margin:0;
+                         font-size:13px;
+                       }
+
+
+  /* =====================================================
+     CTA
+     ===================================================== */
+
+  .cta{
+    border:1px solid rgba(167,139,250,.25);
+    border-radius:32px;
+    padding:55px;
+
+    background:
+            radial-gradient(
+                    circle at 80% 20%,
+                    rgba(139,92,246,.22),
+                    transparent 35%
+            ),
+            linear-gradient(
+                    135deg,
+                    rgba(255,255,255,.06),
+                    rgba(255,255,255,.02)
+            );
+  }
+
+  .cta-grid{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    gap:30px;
+  }
+
+  .cta h2{
+    max-width:700px;
+    margin-bottom:10px;
+  }
+
+
+  /* =====================================================
+     COLLABORATION
+     ===================================================== */
+
+  .collab{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+    margin-top:18px;
+  }
+
+  .collab-card{
+    padding:27px;
+    border-radius:23px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.035);
+  }
+
+  .collab-card h3{
+    margin:0 0 8px;
+  }
+
+  .collab-card p{
+    color:var(--muted);
+    font-size:14px;
+    margin-bottom:19px;
+  }
+
+
+  /* =====================================================
+     FOOTER
+     ===================================================== */
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:32px 0 42px;
+    color:#8f8c9f;
+    font-size:13px;
+  }
+
+  .footer-inner{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    align-items:center;
+  }
+
+
+  /* =====================================================
+     TABLET
+     ===================================================== */
+
+  @media(max-width:1100px){
+
+    /*
+      Still keep the image larger than the text.
+    */
+    .step{
+      grid-template-columns:
+        55px
+        minmax(0,.85fr)
+        minmax(310px,1.15fr);
+
+      gap:20px;
+    }
+  }
+
+
+  /* =====================================================
+     TABLET / SMALL LAPTOP
+     ===================================================== */
+
+  @media(max-width:900px){
+
+    .hero-grid,
+    .about-grid,
+    .tech-grid,
+    .founder{
+      grid-template-columns:1fr;
+    }
+
+    .feature-grid{
+      grid-template-columns:1fr 1fr;
+    }
+
+    .roadmap{
+      grid-template-columns:1fr 1fr;
+    }
+
+    /*
+      On smaller screens:
+      number + text on top,
+      large image underneath.
+    */
+    .step{
+      grid-template-columns:55px 1fr;
+
+      gap:18px;
+
+      padding:22px;
+    }
+
+    .step-media{
+      grid-column:1 / -1;
+
+      width:100%;
+
+      margin-top:2px;
+    }
+
+    .step-media img{
+      aspect-ratio:16 / 9;
+    }
+
+    .navlinks{
+      display:none;
+    }
+
+    .cta-grid{
+      display:block;
+    }
+  }
+
+
+  /* =====================================================
+     MOBILE
+     ===================================================== */
+
+  @media(max-width:620px){
+
+    .container{
+      width:min(
+              calc(100% - 26px),
+              var(--max)
+      );
+    }
+
+    section{
+      padding:75px 0;
+    }
+
+    .hero{
+      padding-top:45px;
+    }
+
+    h1{
+      font-size:49px;
+    }
+
+    .feature-grid,
+    .roadmap,
+    .tech-list,
+    .collab{
+      grid-template-columns:1fr;
+    }
+
+    /*
+      Mobile Step
+    */
+    .step{
+      grid-template-columns:46px 1fr;
+
+      padding:18px;
+
+      gap:14px;
+
+      border-radius:21px;
+    }
+
+    .num{
+      width:44px;
+      height:44px;
+      border-radius:13px;
+    }
+
+    .step h3{
+      font-size:18px;
+    }
+
+    .step p{
+      font-size:13px;
+      line-height:1.65;
+    }
+
+    .step ul{
+      font-size:12px;
+      line-height:1.65;
+    }
+
+    .step-media{
+      grid-column:1 / -1;
+
+      width:100%;
+
+      border-radius:17px;
+
+      margin-top:3px;
+    }
+
+    .step-media img{
+      width:100%;
+      aspect-ratio:16 / 9;
+      object-fit:cover;
+    }
+
+    .footer-inner{
+      display:block;
+    }
+
+    .footer-inner span{
+      display:block;
+      margin-top:9px;
+    }
+  }
+  /* =====================================================
+     VERY SMALL PHONES
+     ===================================================== */
+
+  @media(max-width:400px){
+
+    .step{
+      grid-template-columns:42px 1fr;
+
+      padding:15px;
+
+      gap:12px;
+    }
+
+    .num{
+      width:40px;
+      height:40px;
+    }
+
+    .step h3{
+      font-size:16px;
+    }
+
+    .step p{
+      font-size:12px;
+    }
+
+    .step ul{
+      font-size:11px;
+      padding-left:15px;
+    }
+  }
+
+</style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#top"><img src="./assets/logo.png" alt="Web vision">
+      </a>
+      <div class="navlinks">
+        <a href="#about">About</a><a href="#process">How it works</a><a href="#technology">Technology</a><a href="#vision">Vision</a><a href="#contact">Contact</a>
+      </div>
+      <a class="nav-cta" href="#contact">Let’s connect</a>
+    </div>
+  </nav>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow"><span class="dot"></span> AI-powered website creation</div>
+          <h1>Your vision,<br><span class="gradient">instantly on the web.</span></h1>
+          <p>WebVision is a SaaS platform concept built to reduce the gap between an idea and a real website. Start with a screenshot, a visual reference, or a description of your business — then move toward an editable, structured and deployable web experience.</p>
+          <div class="actions">
+            <a class="btn primary" href="#process">Explore the platform →</a>
+            <a class="btn secondary" href="#founder">Meet the founder</a>
+          </div>
+        </div>
+        <div>
+          <div class="hero-media"><img src="./assets/hero.png" alt="WebVision concept: an idea becoming a live website"></div>
+          <div class="caption">A visual representation of the WebVision product vision.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">About WebVision</div>
+          <h2>From “I need a website” to a website you can actually shape.</h2>
+          <p class="lead">WebVision is my product vision for an AI-native website creation platform. The goal is simple: make the first step of web development accessible to people who have an idea, a business, a visual reference, or simply a story they want to put online.</p>
+        </div>
+        <div class="about-grid">
+          <div class="about-copy">
+            <p>Instead of asking users to begin with a blank canvas, WebVision begins with what they already have. A screenshot can become a structured UI. A business description can become a website specification. The resulting structure can then be turned into code and refined through a visual editing experience.</p>
+            <p>The platform is designed for small businesses, founders, creators, freelancers, professionals, portfolios, personal brands and anyone who wants a serious web presence without needing to become a designer and developer first.</p>
+            <div class="chips">
+              <span class="chip">Idea → Website</span><span class="chip">Screenshot → UI</span><span class="chip">AI-assisted code</span><span class="chip">Visual editing</span><span class="chip">Responsive preview</span><span class="chip">Future-ready deployment</span>
+            </div>
+          </div>
+          <div class="about-image"><img src="assets/compare.png" alt="Comparison between a complex manual workflow and an AI-assisted website workflow"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="process">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">The WebVision workflow</div>
+          <h2>Five steps from vision to a working web experience.</h2>
+          <p class="lead">The product is organized around a clear pipeline. Each stage turns an abstract input into something more structured, editable and closer to production.</p>
+        </div>
+        <div class="steps">
+          <article class="step">
+            <div class="num">01</div>
+            <div>
+              <h3>Design — Start with what you have</h3>
+              <p>Users can begin with a screenshot or visual reference, or describe their business, audience, goals, pages, style and functional requirements.</p>
+              <ul><li>Screenshot / image input</li><li>Business & page requirements</li><li>Style, language and purpose</li></ul>
+            </div>
+            <div class="step-media"><img src="./assets/stage-design.png" alt="Visual website concept and design input"></div>
+          </article>
+
+          <article class="step">
+            <div class="num">02</div>
+            <div>
+              <h3>Build — Understand the visual structure</h3>
+              <p>Computer vision, OCR and AI reasoning can transform pixels into meaningful UI information: sections, elements, hierarchy, spacing, content and relationships.</p>
+              <ul><li>Layout & component recognition</li><li>Text and bounding-box extraction</li><li>Semantic UI reconstruction</li></ul>
+            </div>
+            <div class="step-media"><img src="./assets/stage-structure.png" alt="Screenshot transformed into a structured wireframe"></div>
+          </article>
+
+          <article class="step">
+            <div class="num">03</div>
+            <div>
+              <h3>Code — Turn structure into software</h3>
+              <p>A structured component tree becomes generated frontend code. The architecture is intended to remain modular so that components can be refined instead of treating a website as one static image.</p>
+              <ul><li>Component tree</li><li>Angular / TypeScript direction</li><li>AI-assisted HTML, CSS and logic</li></ul>
+            </div>
+            <div class="step-media"><img src="assets/hero.png" alt="Generated website concept on a monitor"></div>
+          </article>
+
+          <article class="step">
+            <div class="num">04</div>
+            <div>
+              <h3>Configure — See, edit and refine</h3>
+              <p>The long-term product experience is a visual editor where users can select components, change styles and content, request AI modifications and preview desktop, tablet and mobile states.</p>
+              <ul><li>Component-level editing</li><li>AI visual refinement</li><li>Responsive preview</li></ul>
+            </div>
+            <div class="step-media"><img src="assets/stage-configure.png" alt="Visual editor with a selected website component and responsive previews"></div>
+          </article>
+
+          <article class="step">
+            <div class="num">05</div>
+            <div>
+              <h3>Publish — Move from prototype to presence</h3>
+              <p>The destination is a production-ready workflow: content, SEO, backend services, deployment, domain and hosting can eventually become part of one continuous platform experience.</p>
+              <ul><li>Build & deployment pipeline</li><li>Domain / SSL / hosting</li><li>Live, editable website</li></ul>
+            </div>
+            <div class="step-media"><img src="assets/hero.png" alt="Live website concept ready for publishing"></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">What makes it different</div>
+          <h2>Less blank canvas. More starting point.</h2>
+        </div>
+        <div class="feature-grid">
+          <div class="feature"><div class="icon">✦</div><h3>Visual-first</h3><p>Start from a visual reference instead of rebuilding a design manually from scratch.</p></div>
+          <div class="feature"><div class="icon">⌘</div><h3>AI-assisted</h3><p>Use AI for understanding, structure, generation and iteration — while keeping the product editable.</p></div>
+          <div class="feature"><div class="icon">◇</div><h3>Component-aware</h3><p>The goal is not just an image. It is a structured web system made of understandable components.</p></div>
+          <div class="feature"><div class="icon">↗</div><h3>Responsive by design</h3><p>Preview and refine the same experience across desktop, tablet and mobile states.</p></div>
+          <div class="feature"><div class="icon">◎</div><h3>Business-aware</h3><p>Future workflows can connect website generation to content, SEO, marketing and business requirements.</p></div>
+          <div class="feature"><div class="icon">∞</div><h3>Built to evolve</h3><p>Begin with a focused MVP and grow toward an AI-native web creation platform.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="technology">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">Technology</div>
+          <h2>The stack behind the vision.</h2>
+          <p class="lead">WebVision brings together frontend engineering, backend services, computer vision, OCR, generative AI and cloud infrastructure. Some items below represent the current technical direction and architecture, while others are part of the planned evolution.</p>
+        </div>
+        <div class="tech-grid">
+          <div class="tech-image"><img src="assets/tech-stack.png" alt="WebVision technology ecosystem visualization"></div>
+          <div class="tech-list">
+            <div class="tech-item"><strong>Angular + TypeScript</strong><span>Frontend & component architecture</span><small class="status">Core direction</small></div>
+            <div class="tech-item"><strong>Tailwind CSS</strong><span>Rapid UI styling & responsive design</span><small class="status">Core direction</small></div>
+            <div class="tech-item"><strong>NestJS / REST</strong><span>Backend orchestration & APIs</span><small class="status">Core direction</small></div>
+            <div class="tech-item"><strong>Python + PyTorch</strong><span>AI / computer vision services</span><small class="status">AI layer</small></div>
+            <div class="tech-item"><strong>OpenCV + Vision Models</strong><span>Visual analysis & layout understanding</span><small class="status">Research direction</small></div>
+            <div class="tech-item"><strong>OCR / Transformers</strong><span>Text extraction & semantic understanding</span><small class="status">AI layer</small></div>
+            <div class="tech-item"><strong>PostgreSQL</strong><span>Structured application data</span><small class="status">Backend</small></div>
+            <div class="tech-item"><strong>Docker + Cloud</strong><span>Packaging, deployment & infrastructure</span><small class="status">Future pipeline</small></div>
+            <div class="tech-item"><strong>LLM APIs</strong><span>Reasoning, generation & AI editing</span><small class="status">AI layer</small></div>
+            <div class="tech-item"><strong>Object Storage</strong><span>Assets, screenshots and media</span><small class="status">Infrastructure</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="vision" class="vision">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">Visionary plan</div>
+          <h2>The future is not just generating a website. It is understanding why the website exists.</h2>
+          <p class="lead">The long-term vision is an AI web platform where design, engineering, content, SEO and business goals can become inputs to one coherent generation and optimization loop.</p>
+        </div>
+        <div class="roadmap">
+          <div class="road"><span class="tag">01 · Intelligence</span><h3>Multi-input creation</h3><p>Combine screenshots, prompts, brand assets, business requirements, preferred frameworks, languages and functional needs.</p></div>
+          <div class="road"><span class="tag">02 · Engineering</span><h3>Framework-aware generation</h3><p>Let users choose or constrain the technical stack — for example Angular, React, Python services or other supported architectures.</p></div>
+          <div class="road"><span class="tag">03 · Growth</span><h3>SEO & marketing-aware web</h3><p>Generate and refine information architecture, keywords, metadata, landing-page copy and conversion-focused content around business goals.</p></div>
+          <div class="road"><span class="tag">04 · Autonomy</span><h3>AI content & optimization</h3><p>A content assistant and CMS layer could help manage pages, products, blogs and ongoing improvements from one workspace.</p></div>
+        </div>
+
+        <div class="about-card" style="margin-top:18px">
+          <h3>A possible future input</h3>
+          <p style="color:var(--muted);margin-bottom:0">“Create a responsive website from this reference image. Use Angular for the frontend, Python for the AI/backend service, target small businesses, optimize the structure for these SEO keywords, create an initial content plan, and make every section editable.”</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="founder">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">Founder</div>
+          <h2>Built from a frontend engineering background — extended into AI.</h2>
+        </div>
+        <div class="founder">
+          <div class="founder-card">
+            <div class="founder-name">Founder — WebVision</div>
+            <div class="role">Product / Technical Lead</div>
+            <p>WebVision is my attempt to bring together the two areas I have been building toward: professional web development and practical applications of AI.</p>
+            <p>My background in frontend engineering shaped the product around real component architecture, responsive interfaces and maintainable web systems. The AI direction adds another layer: helping software understand visual input and turn intent into structured web experiences.</p>
+            <div class="chips"><span class="chip">Frontend Engineering</span><span class="chip">Web Platforms</span><span class="chip">AI Applications</span><span class="chip">Product Thinking</span></div>
+          </div>
+          <div class="founder-card">
+            <div class="timeline">
+              <div><h3>Web engineering</h3><p>Professional experience building web interfaces and frontend systems created the foundation for thinking in components, UX and maintainable architecture.</p></div>
+              <div><h3>AI exploration</h3><p>Exploring computer vision, OCR and generative AI opened the path toward applying AI to practical software problems.</p></div>
+              <div><h3>WebVision</h3><p>A product concept connecting visual understanding, AI-assisted code generation and visual editing into one SaaS workflow.</p></div>
+              <div><h3>Next chapter</h3><p>Turn the focused MVP into a broader platform where people can move from idea to a production-ready web presence with less technical friction.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="cta">
+          <div class="cta-grid">
+            <div>
+              <div class="kicker">Let’s build what comes next</div>
+              <h2>Have an idea, a challenge, or a reason to collaborate?</h2>
+              <p class="lead">I’m open to conversations with people who want to explore WebVision, contribute technical or product ideas, collaborate on the MVP, or create something meaningful around AI and the web.</p>
+            </div>
+            <a class="btn primary" href="mailto:mohammadamin.milantash@gmail.com">Get in touch →</a>
+          </div>
+          <div class="collab">
+            <div class="collab-card">
+              <h3>🤝 Collaboration</h3>
+              <p>If you are a developer, designer, AI engineer, product thinker or potential collaborator and have an idea that can make WebVision better, I’d love to hear from you.</p>
+              <a class="btn secondary" href="mailto:mohammadamin.milantash@gmail.com?subject=WebVision%20Collaboration">Discuss collaboration</a>
+            </div>
+            <div class="collab-card">
+              <h3>🚀 Investment / Partnership</h3>
+              <p>If you are interested in supporting an early-stage AI + web product, exploring a partnership or discussing investment opportunities, let’s start a conversation.</p>
+              <a class="btn secondary" href="mailto:mohammadamin.milantash@gmail.com?subject=WebVision%20Partnership%20or%20Investment">Discuss partnership</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <strong style="color:#d9d6e4">WebVision</strong>
+      <span>Your vision, instantly on the web. · © 2026 WebVision</span>
+    </div>
+  </footer>
+</body>
+</html>
